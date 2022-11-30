@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http'; //responsavel pela requisicao na API
+import { CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -8,9 +10,12 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    CommonModule
   ],
-  providers: [],
+  providers: [HttpClientModule], //utilizar com injecao de depencias
   bootstrap: [AppComponent]
 })
 export class AppModule { }

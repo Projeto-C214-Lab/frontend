@@ -5,7 +5,7 @@
           <h6>Digite o valor a ser convertido</h6>
           <hr/>
         <div class="formulario">
-          <form [formGroup]="formulario">
+          <form [formGroup]="formulario" (ngSubmit)="Converter()">
             <div class="form-group">              
               <input
                 type="number"
@@ -23,5 +23,15 @@
         </div>
       </div>
     </div>
+    <div class="col-6" *ngIf="visibilidadeValorConvertido">
 
+      <div class="border border-secondary border-2 rounded p-5">
+        <h6>Valor convertido</h6>
+        <hr/>   
+            
+        <h1 class="text-primary">R$ {{ valorConvertido }}</h1>
+      </div>
+      
+    </div>
+  </div>
 </div>
