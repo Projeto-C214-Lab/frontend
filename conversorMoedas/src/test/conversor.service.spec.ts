@@ -6,10 +6,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AppComponent } from '../app/components/app.component';
 import { ConversorService } from '../app/services/conversor.service';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ConversorService', () => {
   let service: ConversorService;
+  let http: HttpClient;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -19,7 +20,7 @@ describe('ConversorService', () => {
       imports: [
         BrowserModule,
         ReactiveFormsModule,
-        HttpClientModule,
+        HttpClientTestingModule,
         CommonModule
       ],
       providers: [
@@ -29,9 +30,16 @@ describe('ConversorService', () => {
       ],
     }).compileComponents();
     service = TestBed.inject(ConversorService);
+    http = TestBed.inject(HttpClient); //mock de HttpClient
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
+  });
+
+  it('should return the values from GET', () => {
+    const spy = spyOn(http, 'get').and.callThrough(); 
+    service.RealizarConversao();
+    expect(spy).not.toBe(null)
   });
 });
