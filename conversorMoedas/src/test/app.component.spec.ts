@@ -4,8 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { AppComponent } from './app.component';
-import { ConversorService } from './conversor.service';
+import { AppComponent } from '../app/app.component';
+import { ConversorService } from '../app/conversor.service';
 
 
 describe('AppComponent', () => {
