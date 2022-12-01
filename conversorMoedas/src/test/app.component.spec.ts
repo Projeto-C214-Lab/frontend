@@ -6,9 +6,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AppComponent } from '../app/components/app.component';
 import { ConversorService } from '../app/services/conversor.service';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AppComponent', () => {
+
+  let service: ConversorService;
+  let http: HttpClient;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [
@@ -17,17 +21,20 @@ describe('AppComponent', () => {
       imports: [
         BrowserModule,
         ReactiveFormsModule,
-        HttpClientModule,
+        HttpClientTestingModule,
         CommonModule
       ],
       providers: [
         HttpClientModule,
         HttpClient,
-        ConversorService 
+        ConversorService
       ],
     }).compileComponents();
+    service = TestBed.inject(ConversorService);
+    http = TestBed.inject(HttpClient); //mock de HttpClient
   });
 
+//----------------------------------------------------------- PADRAO ANGULAR
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
@@ -39,12 +46,31 @@ describe('AppComponent', () => {
     const app = fixture.componentInstance;
     expect(app.title).toEqual('conversorMoedas');
   });
-/*
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('conversorMoedas app is running!');
+
+
+//----------------------------------------------------------- FUNCIONALIDADES
+  it(`should not be null`, () => { 
+    let component = new AppComponent(service);
+    const spy = spyOn(component, 'Converter').and.callThrough();
+    expect(spy).not.toBe(null); //Nao pode ser nulo
   });
-*/
+
+  it(`should not be null`, () => { 
+    let component = new AppComponent(service);
+    const spy = spyOn(component, 'ConverterDolar').and.callThrough();
+    expect(spy).not.toBe(null); //Nao pode ser nulo
+  });
+
+  it(`should be greater than 0`, () => {
+    let component = new AppComponent(service);
+    const spy = spyOn(component, 'Converter').and.callThrough();
+    expect(spy).not.toBeLessThan(0); //Nao existe dinheiro (conversao) negativo
+  });
+
+  it(`should be greater than 0`, () => {
+    let component = new AppComponent(service);
+    const spy = spyOn(component, 'ConverterDolar').and.callThrough();
+    expect(spy).not.toBeLessThan(0); //Nao existe dinheiro (conversao) negativo
+  });
+
 });
